@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
+  <style>
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    input[type="text"] {
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 4px 6px;
+    }
+
+    button {
+      padding: 6px 10px;
+      border: 1px solid #309064;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #42b983;
+    }
+  </style>
+</head>
+<body>
+  <div style="padding: 3rem">
+    <h3>Sample Checkout Page</h3>
+    <form id="formPay" action="http://localhost:8080/pay/4ba5cc40-8893-4da7-8c07-02cb4acbf7f7" target="_blank" onsubmit="return submitForm()">
+      <label for="">
+        <p>Amount to pay</p>
+        <input name="stotal" type="text" value="300.00" style="width:100px">        
+      </label>
+      <label for="">
+        <p>Payment Reference ID</p>
+          <input name="pref" type="text" value="ABCD1234" style="width:200px">
+      </label>
+      <label for="">
+        <p>Promotion</p>
+          <input name="promo" type="text" value="3.00" style="width:200px">
+      </label>
+      <label for="">
+        <p>Email</p>
+          <input name="email" type="text" value="email@domain.com" style="width:200px">
+      </label>
+      <br>
+      <br>
+      <br>
+      <button type="submit">
+        Pay now
+      </button>
+      <!-- <input type="hidden" name="mid" value="4ba5cc40-8893-4da7-8c07-02cb4acbf7f7"> -->
+      <input type="hidden" name="mname" value="Merchant ABC">
+    </form>
+    
+    <br>
+    <p>-------------------</p>
+    Merchant ID: 4ba5cc40-8893-4da7-8c07-02cb4acbf7f7
+  </div>
+  <script>
+    function submitForm() {
+      console.log(this)
+      // return false;
+    }
+  </script>
+</body>
+</html>
