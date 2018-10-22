@@ -29,41 +29,104 @@
 <body>
   <div style="padding: 3rem">
     <h3>Sample Checkout Page</h3>
-    <form id="formPay" action="http://pay-redirect.herokuapp.com/pay/4ba5cc40-8893-4da7-8c07-02cb4acbf7f7" target="_blank" onsubmit="return submitForm()">
+    <form id="formPay" action="http://pay-redirect.herokuapp.com/pay/4ba5cc40-8893-4da7-8c07-02cb4acbf7f7" target="">
       <label for="">
         <p>Amount to pay</p>
-        <input name="stotal" type="text" value="300.00" style="width:100px">        
+        <input id="amount" name="amount" type="text" value="300.00" style="width:100px">        
+      </label>
+      <label for="">
+        <p>Currency</p>
+          <input id="currency" name="currency" type="text" value="SGD" style="width:200px">
       </label>
       <label for="">
         <p>Payment Reference ID</p>
-          <input name="pref" type="text" value="ABCD1234" style="width:200px">
+          <input id="paymentRef" name="payment_ref" type="text" value="ABCD1234" style="width:200px">
       </label>
       <label for="">
         <p>Promotion</p>
-          <input name="promo" type="text" value="3.00" style="width:200px">
+          <input id="promotion" name="promo" type="text" value="3.00" style="width:200px">
       </label>
       <label for="">
         <p>Email</p>
-          <input name="email" type="text" value="email@domain.com" style="width:200px">
+          <input id="email" name="email" type="text" value="email@domain.com" style="width:200px">
       </label>
       <br>
       <br>
       <br>
-      <button type="submit">
-        Pay now
-      </button>
-      <!-- <input type="hidden" name="mid" value="4ba5cc40-8893-4da7-8c07-02cb4acbf7f7"> -->
-      <input type="hidden" name="mname" value="Merchant ABC">
+      <input id="mid" type="hidden" name="mid" value="4ba5cc40-8893-4da7-8c07-02cb4acbf7f7">
     </form>
+    <button id="submit" type="submit">
+      Pay now
+    </button>
+    <p id="status"></p>
+    <span class="Spinner Spinner--path"></span>
     
     <br>
     <p>-------------------</p>
     Merchant ID: 4ba5cc40-8893-4da7-8c07-02cb4acbf7f7
   </div>
   <script>
-    function submitForm() {
-      console.log(this)
-      // return false;
+    document.getElementById("submit").addEventListener("click", submitForm);
+    
+    function submitForm(e) {
+      let btn = this;
+      let statusBox = document.getElementById("status")
+      let merchantId = document.getElementById("mid").value
+      let amount = document.getElementById("amount").value
+      let currency = document.getElementById("currency").value
+      let email = document.getElementById("email").value
+      let promotion = document.getElementById("promotion").value
+      btn.disabled = true;
+      statusBox.innerText = "Processing payment..."
+      fetch('https://pay-redirect-api.herokuapp.com/api/v1/payments/token/' + merchantId ,{
+          method: "POST",
+          credentials: "same-origin",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: JSON.stringify( {
+            amount: amount,
+            currency: currency.toString(),
+            email: email.toString(),
+            promotion: promotion
+          })
+        })
+        .then(function(response) {
+          return response.json()
+        })
+        .then(function(data){
+          statusBox.innerText = "Redirecting to checkout page..."
+
+          window.open(`https://pay-redirect-api.herokuapp.com/api/v1/${data.token}`)
+
+          console.log(data)
+          let x = 0;
+          
+          let interval = setInterval(() => {
+            if ( checkPaymentStatus() ) {
+              clearInterval(interval);
+              statusBox.innerText = "Waiting for reply from server..."
+            } else {
+              statusBox.innerText = "Something went wrong..."
+              // checkStatus()
+            }
+            console.log(x)
+            x++;
+          }, 1000)
+        })
+        .catch(function(error) {
+          status.innerText = error.message;
+          console.log('There has been a problem with your fetch operation: ', error.message);
+        })
+        .finally(() => {
+         
+        });
+    }
+    function checkPaymentStatus() {
+      // fetch('')
+
     }
   </script>
 </body>
