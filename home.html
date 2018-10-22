@@ -99,7 +99,7 @@
         .then(function(data){
           statusBox.innerText = "Redirecting to checkout page..."
 
-          window.open(`https://pay-redirect-api.herokuapp.com/api/v1/${data.token}`)
+          window.open(`http://pay-redirect.herokuapp.com/pay/${data.token}`)
 
           console.log(data)
           let x = 0;
