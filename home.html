@@ -29,7 +29,7 @@
 <body>
   <div style="padding: 3rem">
     <h3>Sample Checkout Page</h3>
-    <form id="formPay" action="http://pay-redirect.herokuapp.com/pay/4ba5cc40-8893-4da7-8c07-02cb4acbf7f7" target="">
+    <form id="formPay" action="#"  target="_blank">
       <label for="">
         <p>Amount to pay</p>
         <input id="amount" name="amount" type="text" value="300.00" style="width:100px">        
@@ -54,10 +54,10 @@
       <br>
       <br>
       <input id="mid" type="hidden" name="mid" value="4ba5cc40-8893-4da7-8c07-02cb4acbf7f7">
+      <button id="submit" type="submit">
+        Pay now
+      </button>
     </form>
-    <button id="submit" type="submit">
-      Pay now
-    </button>
     <p id="status"></p>
     <span class="Spinner Spinner--path"></span>
     
@@ -66,19 +66,31 @@
     Merchant ID: 4ba5cc40-8893-4da7-8c07-02cb4acbf7f7
   </div>
   <script>
-    document.getElementById("submit").addEventListener("click", submitForm);
+    // document.getElementById("submit").addEventListener("click", submitForm);
+    document.getElementById("formPay").addEventListener("submit", submitForm);
+    let statusBox = document.getElementById("status")
+    let paymentStatus = 0;
+    let merchantId = document.getElementById("mid").value
+    let amount = document.getElementById("amount").value
+    let currency = document.getElementById("currency").value
+    let email = document.getElementById("email").value
+    let promotion = document.getElementById("promotion").value
+    let payment_ref = document.getElementById("paymentRef").value
+
+    function checkFirst(e) {
+      e.preventDefault()
+    }
     
     function submitForm(e) {
+      e.preventDefault();
       let btn = this;
-      let statusBox = document.getElementById("status")
-      let merchantId = document.getElementById("mid").value
-      let amount = document.getElementById("amount").value
-      let currency = document.getElementById("currency").value
-      let email = document.getElementById("email").value
-      let promotion = document.getElementById("promotion").value
       btn.disabled = true;
       statusBox.innerText = "Processing payment..."
-      fetch('https://pay-redirect-api.herokuapp.com/api/v1/payments/token/' + merchantId ,{
+
+
+      let newTab = window.open(`http://localhost:8080/pay/verify`);
+    
+      fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}` ,{
           method: "POST",
           credentials: "same-origin",
           mode: "cors",
@@ -90,44 +102,69 @@
             amount: amount,
             currency: currency.toString(),
             email: email.toString(),
-            promotion: promotion
+            promotion: promotion,
+            orderId: payment_ref
           })
         })
-        .then(function(response) {
-          return response.json()
-        })
-        .then(function(data){
+        .then( (response) => { return response.json() })
+        .then( (data) => {
           statusBox.innerText = "Redirecting to checkout page..."
 
-          window.open(`http://pay-redirect.herokuapp.com/pay/${data.token}`)
+          // myWindow.document.write(data.message)
+
+          // window.open()
+          // window.open(`http://pay-redirect.herokuapp.com/pay/${data.token}`)
+          newTab.location.href = `http://localhost:8080/pay/${data.token}`;
 
           console.log(data)
           let x = 0;
-          
-          let interval = setInterval(() => {
-            if ( checkPaymentStatus() ) {
-              clearInterval(interval);
-              statusBox.innerText = "Waiting for reply from server..."
-            } else {
-              statusBox.innerText = "Something went wrong..."
-              // checkStatus()
-            }
-            console.log(x)
-            x++;
-          }, 1000)
         })
         .catch(function(error) {
           status.innerText = error.message;
           console.log('There has been a problem with your fetch operation: ', error.message);
         })
         .finally(() => {
-         
+          let interval = setInterval(()=>{
+            fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}/status/${payment_ref}`)
+              .then( (response) => { return response.json() })
+              .then( (data) => {
+                if ( data.status == 'capture') {
+                  clearInterval(interval);
+                  console.log("Status: ", data.status)
+                  statusBox.innerText = "Order paid!" 
+                } else if (data.status == 'pending') {
+                  console.log("Status: ", data.status)
+                  statusBox.innerText = "Waiting for response from the checkout page..."
+                } else {
+                  clearInterval(interval);
+                  console.log("Status: ", data.status)
+                  statusBox.innerText = "Something went wrong... Please try again."
+                }
+              })
+          }, 3000);
+          // if ( interval == 1 ) {
+          //   clearInterval(interval);
+          //   statusBox.innerText = "Order paid!"
+          // } else {
+          // }
         });
     }
-    function checkPaymentStatus() {
-      // fetch('')
+    // function checkPaymentStatus() {
+    //   let _paymentStatus = 0;
 
-    }
+    //   setTimeout(()=>{
+    //     statusBox.innerText = "Waiting for response from the checkout page..."
+    //   }, 3*1000);
+
+    //   // Check payment status
+    //   fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}/status/${payment_ref}`)
+    //     .then( (response) => { return response.json() })
+    //     .then( (data) => {
+    //       console.log()
+    //       return data.isUsed == 0 ? 0 : 1;
+    //     })
+      
+    // }
   </script>
 </body>
 </html>
