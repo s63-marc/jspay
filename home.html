@@ -67,6 +67,22 @@
   </div>
   <script>
     // document.getElementById("submit").addEventListener("click", submitForm);
+
+
+
+    function makeid() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+      for (var i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      // return text;
+      document.getElementById("paymentRef").value = text;
+    }
+
+    makeid();
+
     document.getElementById("formPay").addEventListener("submit", submitForm);
     let statusBox = document.getElementById("status")
     let paymentStatus = 0;
