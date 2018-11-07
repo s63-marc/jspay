@@ -44,7 +44,7 @@
       </label>
       <label for="">
         <p>Promotion</p>
-          <input id="promotion" name="promo" type="text" value="0.001" style="width:200px">
+          <input id="promotion" name="promo" type="text" value="0.00" style="width:200px">
       </label>
       <label for="">
         <p>Email</p>
@@ -104,8 +104,8 @@
       statusBox.innerText = "Processing payment..."
 
 
-      let newTab = window.open(`http://pay-redirect.herokuapp.com/pay/verify`);
-      // let newTab = window.open(`http://localhost:8080/pay/verify`);
+      // let newTab = window.open(`http://pay-redirect.herokuapp.com/pay/verify`);
+      let newTab = window.open(`http://localhost:8080/pay/verify`);
     
       fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}` ,{
           method: "POST",
@@ -127,8 +127,8 @@
         .then( (data) => {
           statusBox.innerText = "Redirecting to checkout page..."
 
-          // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
-          newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
+          newTab.location.href = `http://localhost:8080/pay/${data.token}`;
+          // newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
 
           console.log(data)
           let x = 0;
