@@ -423,7 +423,7 @@
 									clearInterval(interval);
 									console.log("Status: ", data.status)
 									statusBox.innerText = "Order paid!"
-								} else if (data.status == 'pending') {
+								} else if (data.status == 'pending' || data.status == 'authorize') {
 									console.log("Status: ", data.status)
 									statusBox.innerText = "Waiting for response from the checkout page..."
 								} else {
