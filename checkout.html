@@ -376,9 +376,8 @@
 			btn.disabled = true;
 			statusBox.innerText = "Processing payment..."
 
-
-			// let newTab = window.open(`http://pay-redirect.herokuapp.com/pay/verify`);
-			let newTab = window.open(`http://localhost:8080/pay/verify`,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+			let newTab = window.open(`http://pay-redirect.herokuapp.com/pay/verify`,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+			// let newTab = window.open(`http://localhost:8080/pay/verify`,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
 
 			fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}`, {
 					method: "POST",
@@ -402,7 +401,7 @@
 				.then((data) => {
 					// statusBox.innerText = "Redirecting to checkout page..."
 
-					newTab.location.href = `http://localhost:8080/pay/${data.token}`;
+					newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
 					// newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
 
 					console.log(data)
