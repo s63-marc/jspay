@@ -318,7 +318,10 @@
 			<div class="" style="margin: 0 auto">
 				<div class="">
 
-					<div class="lds-dual-ring"></div>
+					<div id="loading" class="lds-dual-ring"></div>
+					<div id="success" style="display: none">
+						<i class="fa fa-check-circle"></i>
+					</div>
 					<p style="color:#fff" id="status"></p>
 				</div>
 			</div>
@@ -377,7 +380,7 @@
 			statusBox.innerText = "Processing payment..."
 
 			let newTab = window.open(`http://pay-redirect.herokuapp.com/pay/verify`,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
-			// let newTab = window.open(`http://localhost:8080/pay/verify`,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+			// let newTab = window.open(`http://localhost:8080/pay/verify`) //,"MyWindow","config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
 
 			fetch(`https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}`, {
 					method: "POST",
@@ -401,8 +404,8 @@
 				.then((data) => {
 					// statusBox.innerText = "Redirecting to checkout page..."
 
+					// newTab.location.href = `http://localhost:8080/pay/${data.token}`;
 					newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
-					// newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${data.token}`;
 
 					console.log(data)
 					let x = 0;
@@ -422,6 +425,8 @@
 									clearInterval(interval);
 									console.log("Status: ", data.status)
 									statusBox.innerText = "Order paid!"
+									$("#success").show();
+									$("#loading").hide();
 								} else if (data.status == 'pending' || data.status == 'authorize') {
 									console.log("Status: ", data.status)
 									statusBox.innerText = "Waiting for response from the checkout page..."
@@ -432,14 +437,8 @@
 								}
 							})
 					}, 3000);
-					// if ( interval == 1 ) {
-					//   clearInterval(interval);
-					//   statusBox.innerText = "Order paid!"
-					// } else {
-					// }
 				});
 		}
-
 	</script>
 
 </body>
