@@ -565,8 +565,8 @@
 				let title = 'Red Dot Pay'
 				let Uheight = 768;
 				let Uwidth = 1024;
-        let url = `http://localhost:8080/pay/verify`
-				// let url =  `http://pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+        // let url = `http://localhost:8080/pay/verify`
+				let url =  `http://pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
 
 				var dualScreenLeft =
           window.screenLeft != undefined ? window.screenLeft : screen.left;
@@ -585,7 +585,7 @@
           : screen.height;
 
         var left = width / 2 - Uwidth / 2 + dualScreenLeft;
-        var top = height / 2 - Uheight / 2 + dualScreenTop;
+        var top = (height / 2 - Uheight / 2 + dualScreenTop) + 15; 
         newTab = window.open(
           url,
           title,
@@ -629,10 +629,10 @@
           .then(data => {
             // statusBox.innerText = "Redirecting to checkout page..."
 
-            newTab.location.href = `http://localhost:8080/pay/${data.token}`;
-            // newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${
-            //   data.token
-            // }`;
+            // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
+            newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${
+              data.token
+            }`;
 
             console.log(data);
             let x = 0;
