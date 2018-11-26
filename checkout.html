@@ -304,7 +304,7 @@
                       type="hidden"
                       id="currency"
                       name="currency"
-                      value="SGD"
+                      value="USD"
                       style="width:200px"
                     />
                     <!-- </label> -->
@@ -556,7 +556,7 @@
         statusBox.innerText = "Processing payment...";
 
         // let newTab = window.open(
-        //   `http://pay-redirect.herokuapp.com/pay/verify`,
+        //   `http://view-pay-redirect.herokuapp.com/pay/verify`,
         //   "MyWindow",
         //   "config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'"
         // );
@@ -566,7 +566,7 @@
 				let Uheight = 768;
 				let Uwidth = 1100;
         // let url = `http://localhost:8080/pay/verify`
-				let url =  `http://pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+				let url =  `http://view-pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
 
 				var dualScreenLeft =
           window.screenLeft != undefined ? window.screenLeft : screen.left;
@@ -605,7 +605,7 @@
         }
 
         fetch(
-          `https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}`,
+          `https://api-pay-redirect.herokuapp.com/api/v1/payments/token/${merchantId}`,
           {
             method: "POST",
             credentials: "same-origin",
@@ -630,7 +630,7 @@
             // statusBox.innerText = "Redirecting to checkout page..."
 
             // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
-            newTab.location.href = `http://pay-redirect.herokuapp.com/pay/${
+            newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${
               data.token
             }`;
 
@@ -647,7 +647,7 @@
           .finally(() => {
             let interval = setInterval(() => {
               fetch(
-                `https://pay-redirect-api.herokuapp.com/api/v1/payments/token/${merchantId}/status/${payment_ref}`
+                `https://api-pay-redirect.herokuapp.com/api/v1/payments/token/${merchantId}/status/${payment_ref}`
               )
                 .then(response => {
                   return response.json();
