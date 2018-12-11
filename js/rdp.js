@@ -30,18 +30,11 @@ function submitForm(e) {
   btn.disabled = true;
   statusBox.innerText = "Processing payment...";
 
-  // let newTab = window.open(
-  //   `http://view-pay-redirect.herokuapp.com/pay/verify`,
-  //   "MyWindow",
-  //   "config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'"
-  // );
-
   // PopupCenter
   let title = 'Red Dot Pay'
-  let Uheight = 768;
-  let Uwidth = 1100;
-  // let url = `http://localhost:8080/pay/verify`
-  let url =  `http://view-pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
+  let Uheight = 600;
+  let Uwidth = 800;
+  // let url =  `http://view-pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
 
   // START: This block makes sure that the popup window is in the center of the page
   var dualScreenLeft =
@@ -63,7 +56,7 @@ function submitForm(e) {
   var left = width / 2 - Uwidth / 2 + dualScreenLeft;
   var top = (height / 2 - Uheight / 2 + dualScreenTop) + 15; 
   newTab = window.open(
-    url,
+    "about:blank",
     title,
     "scrollbars=yes, width=" +
       Uwidth +
@@ -114,10 +107,11 @@ function submitForm(e) {
 
       // Pass the hosted-page passing the `data.token` as the parameter
 
+      // Local development url
       // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
-      newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${
-        data.token
-      }`;
+
+      // Remote development environment or your production env
+      newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${data.token}`;
 
     })
     .catch(function(error) {
