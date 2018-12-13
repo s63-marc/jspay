@@ -27,7 +27,7 @@ function submitForm(e) {
   let payment_ref = makeId(); //document.getElementById("paymentRef").value;
   let statusInterval;
 
-  
+
   $("#myModal").modal("show");
   e.preventDefault();
   let btn = this;
@@ -121,10 +121,10 @@ function submitForm(e) {
     // Pass the hosted-page passing the `data.token` as the parameter
 
     // Local development url
-    // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
+    newTab.location.href = `http://connect.reddotpay.sg/pay/${data.token}`;
 
     // Remote development environment or your production env
-    newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${data.token}`;
+    // newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${data.token}`;
 
   })
   .catch(function(error) {
