@@ -91,8 +91,6 @@ function submitForm(e) {
   /** 
    * This block sends an API request to the hosted page middleware 
    * and passing the `merchandId` as the parameter
-   * @param {string} merchantId - merchantId of the merchant. 
-   * @returns {object}
    */
   fetch(
     `https://api-pay-redirect.herokuapp.com/api/v1/payments/token/${merchantId}`,
@@ -118,13 +116,13 @@ function submitForm(e) {
   })
   .then(data => {
 
-    // Pass the hosted-page passing the `data.token` as the parameter
+    // Pass the hosted-page passing the `data.token` (response from the previous fetch call) as the parameter
 
     // Local development url
-    newTab.location.href = `http://connect.reddotpay.sg/pay/${data.token}`;
+    // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
 
     // Remote development environment or your production env
-    // newTab.location.href = `http://view-pay-redirect.herokuapp.com/pay/${data.token}`;
+    newTab.location.href = `http://connect.reddotpay.sg.s3.amazonaws.com/pay/${data.token}`;
 
   })
   .catch(function(error) {
