@@ -119,10 +119,10 @@ function submitForm(e) {
     // Pass the hosted-page passing the `data.token` (response from the previous fetch call) as the parameter
 
     // Local development url
-    // newTab.location.href = `http://localhost:8080/pay/${data.token}`;
+    // newTab.location.href = `http://localhost:8080/m/${merchantId}/#/pay/${data.token}`;
 
     // Remote development environment or your production env
-    newTab.location.href = `http://connect.reddotpay.sg.s3.amazonaws.com/pay/${data.token}`;
+    newTab.location.href = `http://connect.reddotpay.sg/m/${merchantId}/#/pay/${data.token}`;
 
   })
   .catch(function(error) {
