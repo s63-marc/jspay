@@ -54,7 +54,7 @@ async function verifyMerchant(merchantId) {
 	return await data.json();
 }
 
-async function getPaymentToken(mid, payload) {
+async function getPaymentToken(mid, payload, accessToken) {
 	console.log("verifyMerchant >>>>>>>>>>>>>", payload)
 	let data = await fetch(
 		`https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1/payments/token/${mid}`, {
@@ -73,36 +73,19 @@ async function getPaymentToken(mid, payload) {
 	return await data.json();
 }
 
-async function getPaymentStatus(mid, payment_ref) {
+async function getPaymentStatus(mid, payment_ref, accessToken) {
 	console.log("getPaymentStatus >>>>>>>>>>>>>", mid, payment_ref)
 	let data = await fetch(
-			`https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1/payments/token/${mid}/status/${payment_ref}`
-		)
-		.then(response => {
-			return response.json();
-		})
-		.then(data => {
-			if (data.status == "capture") {
-				clearInterval(statusInterval);
-				console.log("Status: ", data.status);
-				statusBox.innerText = "Order paid!";
-				$("#success").show();
-				$("#loading").hide();
-				document.location.href = "/";
-			} else if (
-				data.status == "pending" ||
-				data.status == "authorize"
-			) {
-				console.log("Status: ", data.status);
-				statusBox.innerText =
-					"Waiting for response from the checkout page...";
-			} else {
-				clearInterval(interval);
-				console.log("Status: ", data.status);
-				statusBox.innerText =
-					"Something went wrong... Please try again.";
-			}
-		});
+		`https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1/payments/token/${mid}/status/${payment_ref}`, {
+			credentials: "same-origin",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+				"Authorization": `Bearer ${accessToken}`
+				// "Content-Type": "application/x-www-form-urlencoded",
+			},
+		}
+	)
 
 	return await data.json();
 }
@@ -209,7 +192,7 @@ function submitForm(e) {
 
 	verifyMerchant(merchantId)
 		.then(data => {
-			debugger
+			// debugger
 			console.log(data);
 			// if (data.status == "created") {
 
@@ -222,7 +205,7 @@ function submitForm(e) {
 
 					accessToken = data.accessToken;
 
-					debugger
+					// debugger
 
 					console.log(accessToken)
 
@@ -236,10 +219,11 @@ function submitForm(e) {
 						orderId: payment_ref
 					}
 
-					getPaymentToken(merchantId, payload)
+					getPaymentToken(merchantId, payload, accessToken)
 						.then(data => {
 							// Pass the hosted-page passing the `data.token` (response from the previous fetch call) as the parameter
-
+							console.log(data)
+							debugger
 							// Local development url
 							if (data.token === undefined) {
 								throw new Error("Token is not defined")
@@ -265,7 +249,28 @@ function submitForm(e) {
 							// the process is completed
 
 							statusInterval = setInterval(() => {
-								getPaymentStatus();
+								getPaymentStatus(merchantId, payment_ref, accessToken).then(data => {
+									if (data.status == "capture") {
+										clearInterval(statusInterval);
+										console.log("Status: ", data.status);
+										// statusBox.innerText = "Order paid!";
+										// $("#success").show();
+										// $("#loading").hide();
+										document.location.href = "/";
+									} else if (
+										data.status == "pending" ||
+										data.status == "authorize"
+									) {
+										console.log("Status: ", data.status);
+										// statusBox.innerText =
+										// 	"Waiting for response from the checkout page...";
+									} else {
+										clearInterval(interval);
+										console.log("Status: ", data.status);
+										// statusBox.innerText =
+										// 	"Something went wrong... Please try again.";
+									}
+								});
 							}, 3000);
 						});
 
