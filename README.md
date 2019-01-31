@@ -24,7 +24,7 @@ Generate a production build:
 npm run build
 ```
 
-### About the plugin
+### Usage
 
 Add this JavaScript snippet in your app:
 
@@ -49,6 +49,8 @@ window.addEventListener('DOMContentLoaded', function () {
 			})
 		});
 ```
+
+Bind the button's click even as shown above.
 
 ### Required parameters
 
