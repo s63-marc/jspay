@@ -2,7 +2,7 @@
 
 const config = {
 	authDomain: "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
-	domain: "http://localhost:8080",
+	domain: "https://connect.reddotpay.sg",
 	popup: {
 		title: "Red Dot Pay",
 		width: 800,

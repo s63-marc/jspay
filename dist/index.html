@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Bootstrap CSS -->
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 	<!-- <link rel="stylesheet" type="text/css" media="screen,print" href="modal.loader2.css3.css"> -->
 	<title>Global Example Shopping: Checkout Form</title>
@@ -130,35 +130,15 @@
 	</div>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	 crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
 	 crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	 crossorigin="anonymous"></script> -->
-	<!-- <script src="src/jspay.js"></script>
-	<script type="text/javascript">
-		RDP.modal.init('modal.css3.css');
-		let el = id => {
-			return document.getElementById(id)
-		};
+	 crossorigin="anonymous"></script>
 
-		el('paymentRef').innerText = "OID" + (new Date()).getTime();
-		el('pay').addEventListener('click', function (e) {
-			RDP.popup.pay(
-					el('paymentRef').innerText,
-					'af8fed75-3fc4-49d5-a6bb-59d658f49465',
-					el('totalAmount').innerText.substring(1),
-					'SGD', {
-						promo: el('promoCode').value
-					}
-				)
-				.catch(e => {
-					console.log(e);
-				});
-		});
-  </script> -->
-
+	 <script src="dist/index.js"></script>
+	
 	<script>
 		function generatedOrderId() {
 			var text = "";
@@ -173,6 +153,7 @@
 				const RedDot = new Pay({
 					// merchantId: "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
 					merchantId: "cb61bf4a-bc2b-4f18-9e60-efa0405ac8ab",
+					pageId: "efeda90d76be57ac85a1999885e54f12",
 					clientId: "7kusi95pgj6mhh66dntefn742t",
 					secret: "i1vrl8kmau6gegh31h21lj2h9pjq3t5eco10mojc0eeuq57tiu8",
 					payload: {
