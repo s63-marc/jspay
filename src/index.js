@@ -1,8 +1,8 @@
 // RedDotPay Hosted Page JavaScript Development Kit
 
 const config = {
-	authDomain: "https://connect.api.reddotpay.sg/v1",
-	// authDomain: "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
+	// authDomain: "https://connect.api.reddotpay.sg/v1",
+	authDomain: "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
 	// domain: "http://localhost:8080",
 	domain: "http://connect.reddotpay.sg",
 	popup: {
