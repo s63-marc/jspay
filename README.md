@@ -29,25 +29,28 @@ npm run build
 Add this JavaScript snippet in your app:
 
 ```
-window.addEventListener('DOMContentLoaded', function () {
-			// debugger
-      let params = {
-					merchantId: "xxxx",
-					clientId: "xxxx",
-					secret: "xxxx",
-          pageId: "xxxx"
-					payload: {
-						amount: xx.xx,
-						currency: "XXX",
-						email: email@domain.com
-						orderId: XXXXXXXXXXXXXXXXX
-					}
-				}
-			document.getElementById("pay").addEventListener('click', () => {
-				const RedDot = new Pay(params);
-				RedDot.init();
-			})
-		});
+<div id="pay"></div>Pay</div>
+<script src="https://connect.reddotpay.sg/jspay.js"></script>
+<script>
+  document.getElementById("pay").addEventListener('click', () => {
+    
+    const RedDot = new Pay({
+      merchantId: "XXXXXXXXXXXXXXXXXXXXXXXX",
+      pageId: "XXXXXXXXXXXXXXXXXXXXXXXX"
+      clientId: "XXXXXXXXXXXXXXXXXXXXXXXX",
+      secret: "XXXXXXXXXXXXXXXXXXXXXXXX",
+      payload: {
+        amount: "XXXXXXXXXXXXXX.XX",
+        currency: "XXXXXXXXXXXXXX",
+        orderId: "XXXXXXXXXXXXXX",
+        email: "XXXXXX@XXXXXXXX.XXX" 
+      }
+    });
+
+    RedDot.init();
+
+  });
+</script>
 ```
 
 Bind the button's click even as shown above.
