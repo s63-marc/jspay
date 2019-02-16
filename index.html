@@ -1,142 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen,print"
+      href="modal.loader2.css3.css"
+    />
+    <title>Global Example Shopping: Checkout Form</title>
+  </head>
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Bootstrap CSS -->
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous"> -->
-	<!-- <link rel="stylesheet" type="text/css" media="screen,print" href="modal.loader2.css3.css"> -->
-	<title>Global Example Shopping: Checkout Form</title>
-</head>
+  <body>
+    <div class="container">
+      <div class="py-5 text-center">
+        <!-- <img class="d-block mx-auto mb-4" src="logo.png" alt="" height="72"> -->
+        <h3>Checkout form</h3>
+        <p class="">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non mi
+          eget augue fermentum fringilla. Phasellus ut arcu quis libero feugiat
+          elementum quis et mi. Etiam sit amet nulla nibh. Mauris ornare mollis
+          ipsum sit amet mattis. Nulla sed lacus arcu. Pellentesque habitant
+          morbi tristique senectus et netus et malesuada fames ac turpis
+          egestas.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col col-8">
+          <h4>Cart</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col" class="text-center">Volume</th>
+                <th scope="col" class="text-center">Price (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Vivamus leo nibh</td>
+                <td class="text-center">1</td>
+                <td class="text-right" style="padding-right: 20px">$12.50</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Porta et vestibulum sed</td>
+                <td class="text-center">2</td>
+                <td class="text-right" style="padding-right: 20px">$19.98</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>varius at magna</td>
+                <td class="text-center">1</td>
+                <td class="text-right" style="padding-right: 20px">$2.25</td>
+              </tr>
+              <tr>
+                <th scope="row">Total (USD)</th>
+                <td></td>
+                <td class="text-center">4</td>
+                <td class="text-right" style="padding-right: 20px">$34.73</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <ul class="list-group mb-3">
+            <li
+              class="list-group-item d-flex justify-content-between lh-condensed"
+            >
+              <div>
+                <h6 class="my-0">Total Cost</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$34.73</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between lh-condensed"
+            >
+              <div>
+                <h6 class="my-0">Tax</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$2.43</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between lh-condensed"
+            >
+              <div>
+                <h6 class="my-0">Shipping</h6>
+                <small class="text-muted">Brief description</small>
+              </div>
+              <span class="text-muted">$0</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>EXAMPLECODE</small>
+              </div>
+              <span class="text-success">
+                <span>-$2</span>
+              </span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between lh-condensed"
+            >
+              <div>
+                <h6 class="my-0">Payment Reference</h6>
+                <small class="text-muted"></small>
+              </div>
+              <span class="text-muted"><span id="paymentRef"></span></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong id="totalAmount">0.15</strong>
+            </li>
+          </ul>
 
-<body>
-	<div class="container">
-		<div class="py-5 text-center">
-			<!-- <img class="d-block mx-auto mb-4" src="logo.png" alt="" height="72"> -->
-			<h3>Checkout form</h3>
-			<p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non mi eget augue fermentum
-				fringilla. Phasellus ut arcu quis libero feugiat elementum quis et mi. Etiam sit amet nulla nibh. Mauris ornare
-				mollis ipsum sit amet mattis. Nulla sed lacus arcu. Pellentesque habitant morbi tristique senectus et netus et
-				malesuada fames ac turpis egestas.</p>
-		</div>
-		<div class="row">
-			<div class="col col-8">
-				<h4>Cart</h4>
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Item</th>
-							<th scope="col" class="text-center">Volume</th>
-							<th scope="col" class="text-center">Price (USD)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Vivamus leo nibh</td>
-							<td class="text-center">1</td>
-							<td class="text-right" style="padding-right: 20px">$12.50</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Porta et vestibulum sed</td>
-							<td class="text-center">2</td>
-							<td class="text-right" style="padding-right: 20px">$19.98</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>varius at magna</td>
-							<td class="text-center">1</td>
-							<td class="text-right" style="padding-right: 20px">$2.25</td>
-						</tr>
-						<tr>
-							<th scope="row">Total (USD)</th>
-							<td></td>
-							<td class="text-center">4</td>
-							<td class="text-right" style="padding-right: 20px">$34.73</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col">
-				<ul class="list-group mb-3">
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div>
-							<h6 class="my-0">Total Cost</h6>
-							<small class="text-muted">Brief description</small>
-						</div>
-						<span class="text-muted">$34.73</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div>
-							<h6 class="my-0">Tax</h6>
-							<small class="text-muted">Brief description</small>
-						</div>
-						<span class="text-muted">$2.43</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div>
-							<h6 class="my-0">Shipping</h6>
-							<small class="text-muted">Brief description</small>
-						</div>
-						<span class="text-muted">$0</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between bg-light">
-						<div class="text-success">
-							<h6 class="my-0">Promo code</h6>
-							<small>EXAMPLECODE</small>
-						</div>
-						<span class="text-success">
-							<span>-$2</span>
-						</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-condensed">
-						<div>
-							<h6 class="my-0">Payment Reference</h6>
-							<small class="text-muted"></small>
-						</div>
-						<span class="text-muted"><span id="paymentRef"></span></span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between">
-						<span>Total (USD)</span>
-						<strong id="totalAmount">37.16</strong>
-					</li>
-				</ul>
-
-				<form class="card p-2">
-					<div class="input-group">
-						<input type="text" class="form-control" id="promoCode" placeholder="Promo code">
-						<div class="input-group-append">
-							<button type="submit" class="btn btn-secondary">Redeem</button>
-						</div>
-					</div>
-				</form>
-				<hr class="mb-4" />
-				<button type="button" class="btn btn-success btn-lg btn-block" id="pay">Pay</button>
-			</div>
-		</div>
-		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; 2017-2018 Company Name</p>
-			<ul class="list-inline">
-				<li class="list-inline-item"><a href="#">Privacy</a></li>
-				<li class="list-inline-item"><a href="#">Terms</a></li>
-				<li class="list-inline-item"><a href="#">Support</a></li>
-			</ul>
-		</footer>
-	</div>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          <form class="card p-2">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="promoCode"
+                placeholder="Promo code"
+              />
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-secondary">Redeem</button>
+              </div>
+            </div>
+          </form>
+          <hr class="mb-4" />
+          Notification
+          <div class="card p-2 mb-2">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control"
+              value="marc@stack63.com"
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-success btn-lg btn-block"
+            id="pay"
+          >
+            Pay
+          </button>
+        </div>
+      </div>
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 Company Name</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacy</a></li>
+          <li class="list-inline-item"><a href="#">Terms</a></li>
+          <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+        <p style="font-size:.6rem">
+          v1
+          <input
+            type="text"
+            id="v1"
+            style="font-size:.6rem"
+            value="8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2"
+          />
+          <br />
+          v2
+          <input
+            type="text"
+            id="v2"
+            style="font-size:.6rem"
+            value="5reneoibg964k8599lrn411iq0"
+          />
+          <br />
+          v3
+          <input
+            type="text"
+            name=""
+            id="v3"
+            style="font-size:.6rem"
+            value="1iaei54cehtl3a9c4am5mbrhun6dsur5tb470h8femr2ks0ib29r"
+          />
+        </p>
+      </footer>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	 crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
 	 crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	 crossorigin="anonymous"></script> -->
-	<!-- <script src="src/jspay.js"></script>
+    <!-- <script src="src/jspay.js"></script>
 	<script type="text/javascript">
 		RDP.modal.init('modal.css3.css');
 		let el = id => {
@@ -159,38 +229,38 @@
 		});
   </script> -->
 
-	<script>
-		function generatedOrderId() {
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    <script>
+      function generatedOrderId() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-			for (var i = 0; i < 3; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
-			return text + (new Date()).getTime();
-		}
-		window.addEventListener('DOMContentLoaded', function () {
-			// debugger
-			document.getElementById("pay").addEventListener('click', () => {
-				const RedDot = new Pay({
-					// merchantId: "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
-					merchantId: "cb61bf4a-bc2b-4f18-9e60-efa0405ac8ab",
-					pageId: "efeda90d76be57ac85a1999885e54f12",
-					clientId: "7kusi95pgj6mhh66dntefn742t",
-					secret: "i1vrl8kmau6gegh31h21lj2h9pjq3t5eco10mojc0eeuq57tiu8",
-					payload: {
-						amount: document.getElementById("totalAmount").innerText,
-						currency: "USD",
-						// email: document.getElementById("email") // if available
-						// promotion: document.getElementById("promotion") // not yet implemented
-						orderId: generatedOrderId()
-					}
-				});
-				RedDot.init();
-			})
-		});
+        for (var i = 0; i < 3; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text + new Date().getTime();
+      }
 
-	</script>
-
-
-</body>
-
+      window.addEventListener("DOMContentLoaded", function() {
+        // debugger
+        document.getElementById("pay").addEventListener("click", () => {
+          const RedDot = new Pay({
+            // merchantId: "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
+            // pageId: "2cb303a3-9a76-49bf-91c5-9f10a3c7c41a",
+            // clientId: "2lnhnt0327eg3kobd211nv0if1",
+            // secret: "al6r7lc8uf2stnii2q6kjnm8418aen9h58piht6e83gjtgf5e06",
+            merchantId: document.getElementById("v1").value,
+            clientId: document.getElementById("v2").value,
+            secret: document.getElementById("v3").value,
+            payload: {
+              amount: document.getElementById("totalAmount").innerText,
+              currency: "SGD",
+              email: document.getElementById("email").value, // if available
+              // promotion: document.getElementById("promotion") // not yet implemented
+              orderId: generatedOrderId()
+            }
+          });
+          RedDot.init();
+        });
+      });
+    </script>
+  </body>
 </html>

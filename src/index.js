@@ -3,8 +3,8 @@
 const config = {
 	// authDomain: "https://connect.api.reddotpay.sg/v1",
 	authDomain: "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
-	// domain: "http://localhost:8080",
-	domain: "http://connect.reddotpay.sg",
+	domain: "http://localhost:8080",
+	// domain: "http://connect.reddotpay.sg",
 	popup: {
 		title: "Red Dot Pay",
 		width: 800,
@@ -19,11 +19,13 @@ export default class Pay {
 	constructor({
 		merchantId,
 		clientId,
+		// pageId,
 		secret,
 		payload
 	}) {
 		console.log(merchantId, clientId, secret, payload);
 		this.merchantId = merchantId;
+		// this.pageId = pageId
 		this.clientId = clientId;
 		this.secret = secret;
 		this.payload = payload;
@@ -99,12 +101,9 @@ export default class Pay {
 		let data = await fetch(
 			`${config.authDomain}/payments/token/${merchantId}`, {
 				method: "POST",
-				credentials: "same-origin",
-				mode: "cors",
 				headers: {
 					"Content-Type": "application/json; charset=utf-8",
-					Authorization: `Bearer ${accessToken}`
-					// "Content-Type": "application/x-www-form-urlencoded",
+					'Authorization': accessToken
 				},
 				body: JSON.stringify(payload)
 			}
@@ -166,13 +165,13 @@ export default class Pay {
 
 		let verifyMerchant = await this._verifyMerchant(this.merchantId).catch(
 			err => {
+				this.popup.location.href = `${config.domain}/m/${
+          this.merchantId
+        }/#/500`;
 				throw new Error(
 					"Something went wrong while validating the merchant: ",
 					err
 				);
-				this.popup.location.href = `${config.domain}/m/${
-          this.merchantId
-        }/#/500`;
 			}
 		);
 		if (typeof verifyMerchant === "object") {
@@ -194,7 +193,7 @@ export default class Pay {
 					} else {
 						this.popup.location.href = `${config.domain}/m/${
               this.merchantId
-            }/#/pay/${response.token}`;
+            }#/pay/${response.token}`;
 
 						// Remote development environment or your production env
 						// this.popup.location.href = `http://connect.reddotpay.sg/#/pay/${merchantId}/${data.token}`;
