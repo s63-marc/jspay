@@ -174,20 +174,10 @@
           Developer Settings
           <br />
           s1
-          <input
-            type="text"
-            id="s1"
-            style="font-size:.6rem"
-            value="https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1"
-          />
+          <input type="text" id="s1" style="font-size:.6rem" />
           <br />
           s2
-          <input
-            type="text"
-            id="s2"
-            style="font-size:.6rem"
-            value="http://localhost:8080"
-          />
+          <input type="text" id="s2" style="font-size:.6rem" />
           <br />
           v1
           <input
@@ -230,6 +220,17 @@
       window.addEventListener("DOMContentLoaded", function() {
         // debugger
         document.getElementById("pay").addEventListener("click", () => {
+          debugger;
+          let settings = {};
+
+          if (document.getElementById("s1").value) {
+            settings.authDomain = document.getElementById("s1").value;
+          }
+
+          if (document.getElementById("s2").value) {
+            settings.domain = document.getElementById("s2").value;
+          }
+
           const RedDot = new Pay({
             // merchantId: "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
             // pageId: "2cb303a3-9a76-49bf-91c5-9f10a3c7c41a",
@@ -245,11 +246,7 @@
               // promotion: document.getElementById("promotion") // not yet implemented
               orderId: generatedOrderId()
             },
-            settings: {
-              authDomain:
-                "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
-              domain: "http://localhost:8080"
-            }
+            settings: settings
           });
           RedDot.init();
         });
