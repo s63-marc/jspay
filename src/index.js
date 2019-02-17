@@ -51,12 +51,7 @@ export default class Pay {
 		console.log("verifyMerchant >>>>>>>>>>>>>", merchantId);
 
 		let data = await fetch(`${this.config.authDomain}/merchants/${merchantId}`, {
-			method: "GET",
-			credentials: "same-origin",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json; charset=utf-8"
-			}
+			method: "GET"
 		});
 
 		return await data.json();
