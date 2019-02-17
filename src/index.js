@@ -1,18 +1,5 @@
 // RedDotPay Hosted Page JavaScript Development Kit
 
-const config = {
-	// authDomain: "https://connect.api.reddotpay.sg/v1",
-	authDomain: "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
-	domain: "http://localhost:8080",
-	// domain: "http://connect.reddotpay.sg",
-	popup: {
-		title: "Red Dot Pay",
-		width: 800,
-		height: 600
-	},
-	statusCheckFrequency: 3 * 1000 // every 3 seconds
-};
-
 const popup = null;
 
 export default class Pay {
@@ -21,7 +8,8 @@ export default class Pay {
 		clientId,
 		// pageId,
 		secret,
-		payload
+		payload,
+		settings
 	}) {
 		console.log(merchantId, clientId, secret, payload);
 		this.merchantId = merchantId;
@@ -34,7 +22,19 @@ export default class Pay {
 
 		this.popup = popup;
 
+		this.config = Object.assign({
+			authDomain: "https://connect.api.reddotpay.sg/v1",
+			domain: "http://connect.reddotpay.sg",
+			popup: {
+				title: "Red Dot Pay",
+				width: 800,
+				height: 600
+			},
+			statusCheckFrequency: 3 * 1000 // every 3 seconds
+		}, settings)
+
 		console.log("merchantId >>>", merchantId);
+		console.log("config >>>", this.config);
 	}
 
 	init() {
@@ -50,7 +50,7 @@ export default class Pay {
 	async _verifyMerchant(merchantId) {
 		console.log("verifyMerchant >>>>>>>>>>>>>", merchantId);
 
-		let data = await fetch(`${config.authDomain}/merchants/${merchantId}`, {
+		let data = await fetch(`${this.config.authDomain}/merchants/${merchantId}`, {
 			method: "GET",
 			credentials: "same-origin",
 			mode: "cors",
@@ -64,7 +64,7 @@ export default class Pay {
 
 	async _getAccessToken(client, secret) {
 		console.log("getAccessToken >>>>>>>>>>>>>", client, secret);
-		let data = await fetch(`${config.authDomain}/authenticate`, {
+		let data = await fetch(`${this.config.authDomain}/authenticate`, {
 			method: "POST",
 			accept: "application/json",
 			credentials: "same-origin",
@@ -85,7 +85,7 @@ export default class Pay {
 	async _getPaymentStatus(mid, payment_ref) {
 		console.log("getPaymentStatus >>>>>>>>>>>>>", mid, payment_ref);
 		let data = await fetch(
-			`${config.authDomain}/payments/token/${mid}/status/${payment_ref}`
+			`${this.config.authDomain}/payments/token/${mid}/status/${payment_ref}`
 		);
 
 		return await data.json();
@@ -99,7 +99,7 @@ export default class Pay {
 			payload
 		);
 		let data = await fetch(
-			`${config.authDomain}/payments/token/${merchantId}`, {
+			`${this.config.authDomain}/payments/token/${merchantId}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json; charset=utf-8",
@@ -116,7 +116,7 @@ export default class Pay {
 		// PopupCenter
 
 		// let url =  `http://view-pay-redirect.herokuapp.com/pay/verify`;//,"MyWindow", 1024, 768)//"config='toolbar=no, menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no'")
-		let url = `${config.domain}/m/${this.merchantId}/#/pay`;
+		let url = `${this.config.domain}/m/${this.merchantId}/#/pay`;
 
 		// START: This block makes sure that the popup window is in the center of the page
 		let dualScreenLeft =
@@ -135,15 +135,15 @@ export default class Pay {
 			document.documentElement.clientHeight :
 			screen.height;
 
-		let left = width / 2 - config.popup.width / 2 + dualScreenLeft;
-		let top = height / 2 - config.popup.height / 2 + dualScreenTop + 15;
+		let left = width / 2 - this.config.popup.width / 2 + dualScreenLeft;
+		let top = height / 2 - this.config.popup.height / 2 + dualScreenTop + 15;
 		this.popup = window.open(
 			url,
-			config.popup.title,
+			this.config.popup.title,
 			"scrollbars=yes, width=" +
-			config.popup.width +
+			this.config.popup.width +
 			", height=" +
-			config.popup.height +
+			this.config.popup.height +
 			", top=" +
 			top +
 			", left=" +
@@ -165,7 +165,7 @@ export default class Pay {
 
 		let verifyMerchant = await this._verifyMerchant(this.merchantId).catch(
 			err => {
-				this.popup.location.href = `${config.domain}/m/${
+				this.popup.location.href = `${this.config.domain}/m/${
           this.merchantId
         }/#/500`;
 				throw new Error(
@@ -186,12 +186,12 @@ export default class Pay {
 				.then(response => {
 					// redirect to new url
 					if (response.token === undefined) {
-						this.popup.location.href = `${config.domain}/m/${
+						this.popup.location.href = `${this.config.domain}/m/${
               this.merchantId
             }/#/500`;
 						throw new Error("Something went wrong: Token is not defined");
 					} else {
-						this.popup.location.href = `${config.domain}/m/${
+						this.popup.location.href = `${this.config.domain}/m/${
               this.merchantId
             }#/pay/${response.token}`;
 
@@ -224,11 +224,11 @@ export default class Pay {
 									// statusBox.innerText = "Something went wrong... Please try again.";
 								}
 							});
-						}, config.statusCheckFrequency);
+						}, this.config.statusCheckFrequency);
 					}
 				})
 				.catch(err => {
-					this.popup.location.href = `${config.domain}/m/${
+					this.popup.location.href = `${this.config.domain}/m/${
             this.merchantId
           }/#/500`;
 					throw new Error(

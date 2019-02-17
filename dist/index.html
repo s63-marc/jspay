@@ -14,12 +14,12 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       type="text/css"
       media="screen,print"
       href="modal.loader2.css3.css"
-    />
+    /> -->
     <title>Global Example Shopping: Checkout Form</title>
   </head>
 
@@ -144,7 +144,7 @@
             </div>
           </form>
           <hr class="mb-4" />
-          Notification
+          Receive notification about this order?
           <div class="card p-2 mb-2">
             <input
               type="email"
@@ -171,6 +171,24 @@
           <li class="list-inline-item"><a href="#">Support</a></li>
         </ul>
         <p style="font-size:.6rem">
+          Developer Settings
+          <br />
+          s1
+          <input
+            type="text"
+            id="s1"
+            style="font-size:.6rem"
+            value="https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1"
+          />
+          <br />
+          s2
+          <input
+            type="text"
+            id="s2"
+            style="font-size:.6rem"
+            value="http://localhost:8080"
+          />
+          <br />
           v1
           <input
             type="text"
@@ -198,36 +216,6 @@
         </p>
       </footer>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	 crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	 crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	 crossorigin="anonymous"></script> -->
-    <!-- <script src="src/jspay.js"></script>
-	<script type="text/javascript">
-		RDP.modal.init('modal.css3.css');
-		let el = id => {
-			return document.getElementById(id)
-		};
-
-		el('paymentRef').innerText = "OID" + (new Date()).getTime();
-		el('pay').addEventListener('click', function (e) {
-			RDP.popup.pay(
-					el('paymentRef').innerText,
-					'af8fed75-3fc4-49d5-a6bb-59d658f49465',
-					el('totalAmount').innerText.substring(1),
-					'SGD', {
-						promo: el('promoCode').value
-					}
-				)
-				.catch(e => {
-					console.log(e);
-				});
-		});
-  </script> -->
 
     <script>
       function generatedOrderId() {
@@ -256,6 +244,11 @@
               email: document.getElementById("email").value, // if available
               // promotion: document.getElementById("promotion") // not yet implemented
               orderId: generatedOrderId()
+            },
+            settings: {
+              authDomain:
+                "https://rg4fgp2oag.execute-api.ap-southeast-1.amazonaws.com/prod/v1",
+              domain: "http://localhost:8080"
             }
           });
           RedDot.init();
