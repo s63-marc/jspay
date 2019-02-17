@@ -171,7 +171,16 @@
           <li class="list-inline-item"><a href="#">Support</a></li>
         </ul>
         <p style="font-size:.6rem">
-          Developer Settings
+          API Settings (MID, Client, Secret)
+          <br />
+          <textarea name="" cols="80" rows="4" id="api_box">
+{
+	"merchantId": "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
+	"clientId": "5dlhpgodk9ti70t817cngt7jbn",
+	"secret": "f2lrvbacuanci57t41os0ladkkg68amgkp7nn0j6k1j2acqridq"
+}
+					</textarea
+          >
           <br />
           s1
           <input type="text" id="s1" style="font-size:.6rem" />
@@ -179,30 +188,6 @@
           s2
           <input type="text" id="s2" style="font-size:.6rem" />
           <br />
-          v1
-          <input
-            type="text"
-            id="v1"
-            style="font-size:.6rem"
-            value="8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2"
-          />
-          <br />
-          v2
-          <input
-            type="text"
-            id="v2"
-            style="font-size:.6rem"
-            value="5reneoibg964k8599lrn411iq0"
-          />
-          <br />
-          v3
-          <input
-            type="text"
-            name=""
-            id="v3"
-            style="font-size:.6rem"
-            value="1iaei54cehtl3a9c4am5mbrhun6dsur5tb470h8femr2ks0ib29r"
-          />
         </p>
       </footer>
     </div>
@@ -221,7 +206,10 @@
         // debugger
         document.getElementById("pay").addEventListener("click", () => {
           debugger;
-          let settings = {};
+          let settings = {},
+            merchantId,
+            clientId,
+            secret;
 
           if (document.getElementById("s1").value) {
             settings.authDomain = document.getElementById("s1").value;
@@ -231,14 +219,25 @@
             settings.domain = document.getElementById("s2").value;
           }
 
+          if (document.getElementById("api_box").value) {
+            let apiSettings = Object.assign(
+              {},
+              JSON.parse(document.getElementById("api_box").value)
+            );
+
+            merchantId = apiSettings.merchantId;
+            clientId = apiSettings.clientId;
+            secret = apiSettings.secret;
+          }
+
           const RedDot = new Pay({
             // merchantId: "8a25af4e-fe6d-4fe0-ab03-7dfbd9b3fcb2",
             // pageId: "2cb303a3-9a76-49bf-91c5-9f10a3c7c41a",
             // clientId: "2lnhnt0327eg3kobd211nv0if1",
             // secret: "al6r7lc8uf2stnii2q6kjnm8418aen9h58piht6e83gjtgf5e06",
-            merchantId: document.getElementById("v1").value,
-            clientId: document.getElementById("v2").value,
-            secret: document.getElementById("v3").value,
+            merchantId: merchantId,
+            clientId: clientId,
+            secret: secret,
             payload: {
               amount: document.getElementById("totalAmount").innerText,
               currency: "SGD",
